@@ -51,24 +51,28 @@ function hideDisplay() {
         x.style.display = "none";
     }
     showQuiz();
+    displayDOM();
+
 }
 
 document.getElementById("start-btn").addEventListener("click", hideDisplay);
 
-
 function showQuiz() {
     for (var i = 0; i < myQuestions.length; i++) {
         var qAndA = document.createElement("div");
+        qAndA.setAttribute("class", "question-class")
         var q = document.createElement("label")
         q.innerHTML = myQuestions[i].question;
         qAndA.appendChild(q)
 
         for (var j = 0; j < myQuestions[i].answers.length; j++) {
             var newDiv = document.createElement("div")
+
             var a = document.createElement("input");
             a.setAttribute("value", myQuestions[i].answers[j])
             a.setAttribute("type", "radio")
-            a.setAttribute("name", myQuestions[i])
+            a.setAttribute("name", myQuestions[i].answers)
+            a.setAttribute("class", "radio-class")
             newDiv.append(a)
             var label = document.createElement("label")
             label.innerHTML = myQuestions[i].answers[j];
@@ -77,7 +81,12 @@ function showQuiz() {
         }
         console.log(qAndA);
         document.getElementById("quiz").appendChild(qAndA);
+
     }
+
+}
+
+function displayDOM() {
 
     var button = document.createElement("button")
     button.setAttribute("type", "submit")
@@ -85,31 +94,56 @@ function showQuiz() {
     button.textContent = "Submit"
     document.getElementById("end").appendChild(button)
 
+    function submit() {
+        alert("You got " + correct + " out of 5!");
+        clearInterval(setTimeout);
+        var qClass = document.getElementsByClassName("question-class")
+        checkAnswers(qClass);
+    }
+    document.getElementById("submit-btn").addEventListener("click", submit);
+
     var countdown = document.createElement("h2");
     countdown.setAttribute("id", "display-count");
     countdown.textContent = "1:00";
     document.getElementById("count-time").appendChild(countdown);
 }
-
 var userAnswers = []
 var correct = 0
-// var correctAnswers = myQuestions[i].correctAnswer
-// // create a for loop to loop through all my answers and check against user answer
-function checkAnswers() {
 
-    for (var e; e < myQuestions.length; e++) {
-        if (userAnswers === myQuestions[i].correctAnswer) {
-            correct++
+function checkAnswers(arr) {
+
+
+    for (var e = 0; e < arr.length; e++) {
+        var current = arr[e];
+        var radios = current.getElementsByClassName('radio-class')
+        console.log(radios)
+        // console.log(radios.querySelector('input:checked'))
+        for (c = 0; c < radios.length; c++) {
+            var isChecked = radios[c].checked
+            if (isChecked) {
+                var userChoice = radios[c].value
+                if (userChoice === myQuestions[e].correctAnswer()){
+                    console.log("yes")
+                }
+            }     
+               // }
         }
     }
 }
+
+
+
+//check answers
+// retrieve "value" attribute of user answers
+//loop through correct answers and compare "value" to correct answer "value"
+// increment correct for every correct
+// update DOM to show x out of 5 correct
+// cleartimeout
+
 // need a timer function
-// setTimeout(function, 60000)
-// clear timeout
-// document.getElementById("submit-btn").addEventListener("click", clearTimeout)
-
-
-
-    // if the user doesn't click submit in 60 seconds...
-    // then timeout function fires. 
-    // display timer
+// var count = 60, timer = setInterval(function() {
+//     document.getElementById("display-count").innerHTML(count--);
+//     if(count == 1) clearInterval(timer);
+// }, 1000);
+// setTimeout(showQuiz, 60000)
+// var timeInterval = setInterval(clock, 1000)
