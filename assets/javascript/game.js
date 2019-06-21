@@ -95,7 +95,6 @@ function displayDOM() {
     document.getElementById("end").appendChild(button)
 
     function submit() {
-        alert("You got " + correct + " out of 5!");
         clearInterval(setTimeout);
         var qClass = document.getElementsByClassName("question-class")
         checkAnswers(qClass);
@@ -122,13 +121,17 @@ function checkAnswers(arr) {
             var isChecked = radios[c].checked
             if (isChecked) {
                 var userChoice = radios[c].value
-                if (userChoice === myQuestions[e].correctAnswer()){
-                    console.log("yes")
+                console.log(userChoice)
+                console.log(myQuestions[e].correctAnswer())
+                if (userChoice == myQuestions[e].correctAnswer()){
+                    correct++;
+                    
                 }
             }     
-               // }
+               
         }
     }
+    alert("You got " + correct + " out of 5!");
 }
 
 
