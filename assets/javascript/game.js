@@ -52,7 +52,7 @@ function hideDisplay() {
     }
     showQuiz();
     displayDOM();
-
+    startTimer();
 }
 
 document.getElementById("start-btn").addEventListener("click", hideDisplay);
@@ -134,6 +134,16 @@ function checkAnswers(arr) {
     alert("You got " + correct + " out of 5!");
 }
 
+var counter = 60
+
+function startTimer () {
+    
+    setInterval(function (){counter--;
+    var display = document.getElementById("display-count");
+    display.innerHTML = counter;
+    }, 1000)
+}
+
 
 
 //check answers
@@ -150,3 +160,4 @@ function checkAnswers(arr) {
 // }, 1000);
 // setTimeout(showQuiz, 60000)
 // var timeInterval = setInterval(clock, 1000)
+
