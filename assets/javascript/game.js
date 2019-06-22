@@ -142,6 +142,11 @@ function startTimer () {
     var display = document.getElementById("display-count");
     display.innerHTML = counter;
     }, 1000)
+
+    if (counter < 0){
+        clearTimeout(setInterval);
+        alert ("You ran out of time!")
+    }
 }
 
 
