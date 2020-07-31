@@ -136,17 +136,20 @@ function checkAnswers(arr) {
 
 var counter = 60
 
+
 function startTimer () {
     
     setInterval(function (){counter--;
     var display = document.getElementById("display-count");
     display.innerHTML = counter;
+    if (counter < 0) {
+        alert ("You ran out of time!");
+        clearInterval();
+    }
     }, 1000)
 
-    if (counter < 0){
-        clearTimeout(setInterval);
-        alert ("You ran out of time!")
-    }
+    
+    
 }
 
 
